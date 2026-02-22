@@ -9,7 +9,7 @@ So far, I've done:
    * Training data produced by my script: [Link](https://drive.google.com/file/d/1d8Lks1TowMwyqEutloPnDI9ggHNJIu3r/view?usp=drive_link)
    * Validation data produced by my script: [Link](https://drive.google.com/file/d/1TZQBnBNA11syETDzqjQHod2KE8AmlJKe/view?usp=drive_link)
 
-3. **Fine-Tuning**: I tried to fine-tune `google/gemma-3-270m` using LoRA so I wouldn't have to train all the base weights. However, I couldn't complete a real training run due to resource limitations. I barely had any free compute left on Google Colab after finishing my DL assignment. To at least test my pipeline, I trained it on arbitary hyperparameters using only 10% of the training data and for only 1 epoch and published the model to Hugging Face ([Link](https://huggingface.co/mohamed-hassaneen/gemma3-arabic-poetry))
+3. **Fine-Tuning**: I tried to fine-tune `google/gemma-3-270m` using LoRA so I wouldn't have to train all the base weights. However, I couldn't complete a real training run due to resource limitations. I barely had any free compute left on Google Colab after finishing my DL assignment. To at least test my pipeline, I trained it on arbitary hyperparameters (designed to keep training time <1 hr on T4 GPU) using only 10% of the training data and for only 1 epoch and published the model to Hugging Face ([Link](https://huggingface.co/mohamed-hassaneen/gemma3-arabic-poetry))
 
 4. **Results**: Because of the compute limits and arbitary hyperparameters, the model obviously returns garbage right now (as can be seen from the output of the 'Evaluate Perplexity' and 'Test Generation' cells)
 
