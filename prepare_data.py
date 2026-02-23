@@ -70,10 +70,9 @@ def format_poem(poem_verses: pd.DataFrame) -> str:
     Format a group of verses into a single training example string,
     following the special token scheme from Abboushi & Azzeh (2023).
 
-    Each verse is formatted in RTL logical order as:
-        [rhyme] H2 [meter] H1
-    where H1 is the right hemistich and H2 is the left hemistich. Verses are 
-    joined by newlines to form one complete poem training example.
+    Each verse is formatted in LTR logical order as: H1 [meter] H2 [rhyme]  
+    where H1 is the right hemistich and H2 is the left hemistich. Verses 
+    are concatenated with spaces to form the complete poem text.
 
     The meter and rhyme are read directly from each row's COL_METER and 
     COL_RHYME columns respectively.
@@ -88,15 +87,20 @@ def format_poem(poem_verses: pd.DataFrame) -> str:
                                     verse order.
 
     Returns:
-        str: A newline-separated string of formatted verses representing
+        str: A space-separated string of formatted verses representing
              one complete poem. 
 
     Example:
-        format_poem(poem_verses) = 
+        Note: Due to bidirectional (Bidi) text rendering mixing RTL Arabic 
+                    and LTR brackets, vs code may visually display the 
+                    string as starting with the rhyme token (e.g., [rhyme] H2 [meter] H1). 
+                    However, the logical string in memory strictly follows the 
+                    causal sequence: H1 [meter] H2 [rhyme].
+
+        format_poem(poem_verses) =
         '[د] خليلي لا تستعجلا ان تزودا [الطويل] وان تجمعا شملي وتنتظرا غدا
          [د] فما لبث يوما بسابق مغنم [الطويل] ولا سرعتي يوما بسابقة الردى
          [د] وان تنظراني اليوم اقض لبانة [الطويل] وتستوجبا منا علي وتحمدا'
-
     """
     lines = []
 
@@ -108,11 +112,11 @@ def format_poem(poem_verses: pd.DataFrame) -> str:
         meter = str(row[COL_METER]).strip()
         rhyme = str(row[COL_RHYME]).strip()
 
-        # RTL order: H1 [meter] H2 [rhyme]
-        lines.append(f"[{rhyme}] {h1} [{meter}] {h2}")
+        # LTR format with special tokens : H1 [meter] H2 [rhyme]
+        lines.append(f"{h1} [{meter}] {h2} [{rhyme}]")
 
     # Join all formatted verses with newlines to create the final poem string
-    return "\n".join(lines)
+    return " ".join(lines)
 
 
 if __name__ == "__main__":
